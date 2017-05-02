@@ -63,6 +63,14 @@
 //                NSString *dataStr = [NSString stringWithFormat:@"%@ = %@\n",str,resultTextArray.firstObject];
                 NSString *dataStr = [NSString stringWithFormat:@"%@\n",resultTextArray.firstObject];
                 [totalStr appendString:dataStr];
+            }else {
+                {
+                    //NSString *dataStr = [NSString stringWithFormat:@"%@ = 0 \n",str];
+                    NSString *dataStr = @"0\n";
+                    [totalStr appendString:dataStr];
+                    continue;
+                }
+
             }
         }
         
