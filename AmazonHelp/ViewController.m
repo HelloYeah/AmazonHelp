@@ -15,6 +15,7 @@
 @property (nonatomic,strong) WKWebView *webView;
 @property (nonatomic,copy) NSString *urlStr;
 @property (nonatomic,strong) NSArray *dataArray;
+@property (weak, nonatomic) IBOutlet UILabel *process;
 
 @end
 
@@ -38,10 +39,10 @@
     //异步函数：具备开启新线程的能力
     
     dispatch_async(queue, ^{
-
+        
         NSMutableString *totalStr = [NSMutableString string];
         
-        for (NSInteger i = 0; i < self.dataArray.count; i++) {
+        for (NSInteger i = 0; i < self.dataArray.count - 1; i++) {
             
             NSString *str = self.dataArray[i];
             NSString *tempStr = [str stringByReplacingOccurrencesOfString:@" " withString:@"+"];
@@ -49,9 +50,6 @@
             NSString *htmlStr = [[NSString alloc] initWithContentsOfURL:URL encoding:NSUTF8StringEncoding error:nil];
             if (htmlStr.length == 0) {
                 //NSString *dataStr = [NSString stringWithFormat:@"%@ = 0 \n",str];
-                dispatch_sync(dispatch_get_main_queue(), ^{
-                    NSLog(@"%ld/%ld",i,self.dataArray.count);
-                });
                 NSString *dataStr = @"0\n";
                 [totalStr appendString:dataStr];
                 continue;
@@ -61,26 +59,33 @@
             NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:regexString options:NSRegularExpressionCaseInsensitive error:nil];
             NSTextCheckingResult *checkResult = [regex firstMatchInString:htmlStr options:NSMatchingReportCompletion range:NSMakeRange(0, htmlStr.length)];
             NSString *checkText = [htmlStr substringWithRange:[checkResult rangeAtIndex:0]];
+            if (checkText.length == 0) {
+                NSString *dataStr = @"0\n";
+                [totalStr appendString:dataStr];
+                continue;
+            }
             NSArray *resultTextArray = [checkText componentsSeparatedByString:@" "];
             if (resultTextArray.count > 0) {
-
-//                NSString *dataStr = [NSString stringWithFormat:@"%@ = %@\n",str,resultTextArray.firstObject];
+                
+                dispatch_sync(dispatch_get_main_queue(), ^{
+            
+                    self.process.text = [NSString stringWithFormat:@"%ld/%ld",i,self.dataArray.count];
+                });
+                //                NSString *dataStr = [NSString stringWithFormat:@"%@ = %@\n",str,resultTextArray.firstObject];
                 NSString *dataStr = [NSString stringWithFormat:@"%@\n",resultTextArray.firstObject];
                 [totalStr appendString:dataStr];
             }else {
-                {
-                    //NSString *dataStr = [NSString stringWithFormat:@"%@ = 0 \n",str];
-                    NSString *dataStr = @"0\n";
-                    [totalStr appendString:dataStr];
-                    continue;
-                }
-
+                
+                //NSString *dataStr = [NSString stringWithFormat:@"%@ = 0 \n",str];
+                NSString *dataStr = @"0\n";
+                [totalStr appendString:dataStr];
             }
         }
         
         NSString *targtPath = @"/Users/yaozhong/Desktop/result.txt";
         [totalStr writeToFile:targtPath atomically:YES encoding:NSUTF8StringEncoding error:nil];
-        NSLog(@"写入完成");
+        
+        self.process.text = @"写入完成";
         
     });
 }

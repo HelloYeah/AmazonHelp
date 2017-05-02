@@ -31,13 +31,27 @@
                                 <color key="textColor" red="1" green="0.37704613095238093" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="进度" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ujm-Vq-Ydr">
+                                <rect key="frame" x="87" y="314" width="200" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="4d2-YN-Pbc"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="0.37704613100000001" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="Ujm-Vq-Ydr" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="1dc-A1-gd1"/>
                             <constraint firstItem="KTz-w1-Q05" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" multiplier="0.8" id="Ptk-zE-qIY"/>
+                            <constraint firstItem="Ujm-Vq-Ydr" firstAttribute="top" secondItem="KTz-w1-Q05" secondAttribute="bottom" constant="36" id="ZEI-C7-g8u"/>
                             <constraint firstItem="KTz-w1-Q05" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="hAr-cY-v6h"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="process" destination="Ujm-Vq-Ydr" id="fW2-wX-ei0"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
