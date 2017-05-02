@@ -49,6 +49,9 @@
             NSString *htmlStr = [[NSString alloc] initWithContentsOfURL:URL encoding:NSUTF8StringEncoding error:nil];
             if (htmlStr.length == 0) {
                 //NSString *dataStr = [NSString stringWithFormat:@"%@ = 0 \n",str];
+                dispatch_sync(dispatch_get_main_queue(), ^{
+                    NSLog(@"%ld/%ld",i,self.dataArray.count);
+                });
                 NSString *dataStr = @"0\n";
                 [totalStr appendString:dataStr];
                 continue;
