@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import <WebKit/WebKit.h>
 
+#define UKUrlStr @"https://www.amazon.co.uk/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords="
 @interface ViewController () <WKNavigationDelegate>
 
 @property (nonatomic,strong) WKWebView *webView;
@@ -23,7 +24,7 @@
     
     [super viewDidLoad];
     
-    self.urlStr = @"https://www.amazon.co.uk/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords=";
+    self.urlStr = UKUrlStr;
     
     //    NSString *htmlStr = @"of 41995 results adssfd of 41,995 results";
     //    NSString *regexString = @"of+\\s+(?<=\d)(?=(\d{3})+$)+\\s+results";
